@@ -5,9 +5,14 @@ import Barcode from 'react-barcode';
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.myRef = React.createRef();
+    this.printDocument=this.printDocument.bind(this)
+  }
 
   printDocument() {
-    const input = document.getElementById('divToPrint');
+    const input = this.myRef.current  //document.getElementById('divToPrint');
     html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
@@ -28,7 +33,7 @@ class App extends Component {
         <div className="mb5">
           <button onClick={this.printDocument}>Print</button>
         </div>
-        <div id="divToPrint">
+        <div id="divToPrint" ref={this.myRef}>
           
             
               <h3>10 Great and Easy English Books You Must Read</h3>
